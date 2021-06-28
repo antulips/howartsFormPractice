@@ -8,28 +8,25 @@ window.onload = () => {
     const nacionalidad = form.nacionalidad;
     const button = form.querySelector('button');
 
-    let nameUser = null;
-    let passwordUser = null;
-    let phoneUser = null;
-    let hobbiesUser = [];
-    let nationalityUser = null;
-
-    class user {
-        constructor(nombre, contrasenia, telefono, hobbies, nacionalidad) {
-            this.name = nombre;
-            this.passwd = contrasenia;
-            this.phone = telefono;
-            this.hobbies = hobbies;
-            this.nationality = nacionalidad;
+    class User {
+        constructor() {
+            this.name = null;
+            this.passwd = null;
+            this.phone = null;
+            this.hobbies = [];
+            this.nationality = null;
         }
     };
 
+    const newUser = new User();
+
+
     nombre.addEventListener('keyup', () => {
-        nameUser = nombre.value.toString().toLowerCase().trim();
+        newUser.name = nombre.value.toString().toLowerCase().trim();
     });
 
     contrasenia.addEventListener('keyup', () => {
-        passwordUser = contrasenia.value.trim();
+        newUser.passwd = contrasenia.value.trim();
     });
 
     telefono.addEventListener('keyup', () => {
@@ -37,11 +34,11 @@ window.onload = () => {
 
         if (isNaN(number)) {
             button.disabled = true;
-            phoneUser = null;
+            newUser.phone = null;
             alert("Por favor, ingresa un número de teléfono muggle o mágico válido.")
         } else {
             button.disabled = false;
-            phoneUser = telefono.value.trim();
+            newUser.phone = telefono.value.trim();
         }
     });
 
@@ -50,16 +47,13 @@ window.onload = () => {
 
         hobbies.forEach((hobbie) => {
             if (hobbie.checked) {
-                hobbiesUser.push(hobbie.value);
+                newUser.hobbies.push(hobbie.value);
             }
         })
 
-        nationalityUser = nacionalidad.value;
-
-        const newUser = new user(nameUser, passwordUser, phoneUser, hobbiesUser, nationalityUser);
+        newUser.nationality = nacionalidad.value;
 
         console.table(newUser);
-
     });
 
 };
